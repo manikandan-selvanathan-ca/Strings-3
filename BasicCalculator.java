@@ -25,16 +25,14 @@ public class BasicCalculator {
         int number = 0;
         char lastSymbol = '+';
         Stack<Integer> stack = new Stack<Integer>();
-        s = s.trim();
         for (int i = 0; i < s.length(); i++) {
-            char currentChar = s.charAt(i);
-            if (currentChar != ' ') {
+            char currentChar = s.charAt(i);  
                 if (Character.isDigit(currentChar)) {
                     int currentNumber = currentChar - '0';
                     number = number * 10 + currentNumber;
                 }
 
-                if (!Character.isDigit(currentChar) || i == s.length() - 1) {
+                if ((currentChar != ' ' && !Character.isDigit(currentChar)) || (i == s.length() - 1)) { //If the string has last empty space. Then it will ignore theprevious number. So had to check empty here not at the top.
                     switch (lastSymbol) {
                         case '+':
                             stack.push(number);
@@ -52,8 +50,7 @@ public class BasicCalculator {
                     }
                     number = 0;
                     lastSymbol = currentChar;
-                }
-            }
+                }   
         }
 
         while (!stack.isEmpty()) {
